@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sbm.insuranceProject.daos.CustomerDao;
+import sbm.insuranceProject.dtos.CustomerPolicyDto;
 import sbm.insuranceProject.models.Customer;
 
 @Service
@@ -24,5 +25,7 @@ public class CustomerManager implements CustomerService{
 	public List<Customer> getAll() {
 		return customerDao.findAll();
 	}
+
+	
 
 }

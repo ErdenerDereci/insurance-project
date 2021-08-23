@@ -1,10 +1,12 @@
 package sbm.insuranceProject.models;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,22 +30,30 @@ public class Customer {
 	@Column(name = "customer_age")
 	private int age;
 	
-	@Column(name = "customer_policy_id")
-	private int policyId;
+	@ManyToMany(mappedBy = "customers")
+	private List<Policy> policies;
 
 	
+	public List<Policy> getPolicies() {
+		return policies;
+	}
+
+	public void setPolicies(List<Policy> policies) {
+		this.policies = policies;
+	}
+
 	public Customer() {
 		
 	}
 
-	public Customer(int id, String name, String surname, String email, int age, int policyId) {
+	public Customer(int id, String name, String surname, String email, int age) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.age = age;
-		this.policyId = policyId;
+		
 	}
 
 	public int getId() {
@@ -86,11 +96,5 @@ public class Customer {
 		this.age = age;
 	}
 
-	public int getPolicyId() {
-		return policyId;
-	}
 
-	public void setPolicyId(int policyId) {
-		this.policyId = policyId;
-	}
 }

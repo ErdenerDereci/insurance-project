@@ -16,7 +16,6 @@
                     <th>Surname</th>
                     <th>Email</th>
                     <th>Age</th>
-                    <th>PolicyId</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,12 +25,12 @@
                     <td th:text="${customer.surname}"></td>
 					<td th:text="${customer.email}"></td>
                     <td th:text="${customer.age}"></td>
-					<td th:text="${customer.policyId}"></td>
                 </tr>
             </tbody>
         </table>
-        <a class="btn btn-primary" type="submit" >Add Customer</a>
+        <a th:href = "@{/newCustomerForm}" class="btn btn-primary" type="submit" >Add Customer</a>
         <a th:href = "@{/listPolicies}" class="btn btn-primary" type="submit">Go to  Policy List</a>
+        <a th:href = "@{/listCustomerPolicies}" class="btn btn-primary" type="submit">Go to Customer Policies</a>
     </div>
 </body>
 </html>
