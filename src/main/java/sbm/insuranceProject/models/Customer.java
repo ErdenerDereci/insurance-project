@@ -31,14 +31,14 @@ public class Customer {
 	private int age;
 	
 	@ManyToMany(mappedBy = "customers")
-	private List<Policy> policies;
+	private List<PolicyType> policies;
 
 	
-	public List<Policy> getPolicies() {
+	public List<PolicyType> getPolicies() {
 		return policies;
 	}
 
-	public void setPolicies(List<Policy> policies) {
+	public void setPolicies(List<PolicyType> policies) {
 		this.policies = policies;
 	}
 

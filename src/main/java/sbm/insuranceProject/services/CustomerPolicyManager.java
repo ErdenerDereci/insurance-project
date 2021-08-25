@@ -9,7 +9,7 @@ import sbm.insuranceProject.daos.CustomerPolicyDao;
 import sbm.insuranceProject.dtos.CustomerPolicyDto;
 import sbm.insuranceProject.models.Customer;
 import sbm.insuranceProject.models.CustomerPolicy;
-import sbm.insuranceProject.models.Policy;
+import sbm.insuranceProject.models.PolicyType;
 
 @Service
 public class CustomerPolicyManager implements CustomerPolicyService{
@@ -54,7 +54,7 @@ public class CustomerPolicyManager implements CustomerPolicyService{
 	}
 
 	@Override
-	public List<Policy> getAllPolicies() {
+	public List<PolicyType> getAllPolicies() {
 		// TODO Auto-generated method stub
 		return policyService.GetAll();
 	}

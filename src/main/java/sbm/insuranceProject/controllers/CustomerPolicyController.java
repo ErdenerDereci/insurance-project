@@ -1,4 +1,4 @@
-package sbm.insuranceProject.controller;
+package sbm.insuranceProject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +34,6 @@ public class CustomerPolicyController {
 	@PostMapping("/addCustomerPolicy")
 	public String addCustomerPolicy(@ModelAttribute("customerPolicy") CustomerPolicy customerPolicy) {
 		customerPolicyService.add(customerPolicy);
-		return "redirect:/";
+		return "redirect:/listCustomerPolicies";
 	}
 }

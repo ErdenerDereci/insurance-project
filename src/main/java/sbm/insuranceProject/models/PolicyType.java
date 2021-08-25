@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "policies")
-public class Policy {
+public class PolicyType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "policy_id")
@@ -23,10 +23,10 @@ public class Policy {
 	
 	@ManyToMany
 	private List<Customer> customers;
-	public Policy() {
+	public PolicyType() {
 		
 	}
-	public Policy(int id, String name) {
+	public PolicyType(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;

@@ -6,26 +6,24 @@
 <title>Add Customer</title>
 </head>
 <body>
-	<div class="container-sm" style="margin-top: 50px;">
-		<form class="row g-3" action="#" th:action="@{/addCustomerPolicy}" th:object="${customerPolicy}" method="POST">
+	<div class="col-lg-3" th:object="${customerPolicy}">
+    <form class="row g-3" action="#" th:action="@{/addCustomerPolicy}" th:object="${customerPolicy}" method="POST">
         <div class="col-md-6">
             <div class="form-group blu-margin" style="margin-top:20px;">
-                <select class="form-control" th:field="*{customerId}"  id="dropOperator">
-                <option value="0">select operator</option>
-                <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
+                <select style="padding:10px;" th:field="*{customerId}"  id="dropOperator">
+                <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
                 </select>
             </div>
             <div class="form-group blu-margin" style="margin-top:20px;">
-                <select class="form-control" th:field="*{policyId}"  id="dropOperator">
-                <option value="0">select operator</option>
-                <option th:each="policy : ${policies}" th:value="${policy.id}" th:text="${policy.name}"></option>
+                <select style="padding:10px;" th:field="*{policyId}"  id="dropOperator">
+                <option th:each="policy : ${policies}" th:value="${policy.id}" th:text="${policy.id}+' - '+${policy.name}"></option>
                 </select>
             </div>
 		<div class="col-12">
 		  <button type="submit" class="btn btn-primary" style="margin-top:20px;">Add</button>
 		</div>
 	  </form>
-	</div>
+</div>
 	
 </body>
 </html>

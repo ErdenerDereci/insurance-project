@@ -17,6 +17,7 @@ public class CustomerManager implements CustomerService{
 	
 	@Override
 	public void add(Customer customer) {
+		
 		customerDao.save(customer);
 		
 	}

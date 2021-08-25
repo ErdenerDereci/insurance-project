@@ -2,10 +2,10 @@ package sbm.insuranceProject.services;
 
 import java.util.List;
 
-import sbm.insuranceProject.models.Policy;
+import sbm.insuranceProject.models.PolicyType;
 
 public interface PolicyService {
 
-	void Add(Policy policy);
-	List<Policy> GetAll();
+	void Add(PolicyType policy);
+	List<PolicyType> GetAll();
 }
