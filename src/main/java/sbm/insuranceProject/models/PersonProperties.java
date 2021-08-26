@@ -9,20 +9,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class House {
+public class PersonProperties {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int ownerId;
-	private String address;
-	private int builtYear;
-	private String builtType;
-	private int floorCount;
-	private String damageStatus;
-	
+	private int personId;
+	private int height;
+	private int weight;
+	private String illnesses;
 }

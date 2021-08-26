@@ -7,31 +7,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import sbm.insuranceProject.models.Customer;
-import sbm.insuranceProject.services.CustomerService;
+import sbm.insuranceProject.models.Person;
+import sbm.insuranceProject.services.PersonService;
+
+
 
 @Controller
-public class CustomerController {
+public class PersonController {
 
 	@Autowired
-	CustomerService customerService;
+	PersonService personService;
 	
 	@GetMapping("/")
 	public String homePage(Model model) {
-		model.addAttribute("listCustomers", customerService.getAll());
+		model.addAttribute("listCustomers", personService.getAll());
 		return "index";
 	}
 	
 	@GetMapping("/newCustomerForm")
 	public String newCustomerForm(Model model) {
-		Customer customer= new Customer();
+		Person customer= new Person();
 		model.addAttribute("customer", customer);
 		return "newCustomerForm";
 	}
 	
 	@PostMapping("/addCustomer")
-	public String addPolicy(@ModelAttribute("customer") Customer customer) {
-		customerService.add(customer);
+	public String addPolicy(@ModelAttribute("customer") Person person) {
+		personService.add(person);
 		return "redirect:/";
 	}
 }

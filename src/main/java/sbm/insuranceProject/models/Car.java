@@ -1,5 +1,6 @@
 package sbm.insuranceProject.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,16 +18,22 @@ public class Car {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
 	private int id;
 	
-	private int customerId;
+	@Column(name="owner_id")
+	private int ownerId;
 	
+	@Column(name="last_years_damage_grade")
 	private int lastYearsDamageGrade;
 	
+	@Column(name="age")
 	private int age;
 	
+	@Column(name="brand")
 	private String brand;
 	
+	@Column(name="city_traffic_density")
 	private String cityTrafficDensity;
 }
 

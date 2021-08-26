@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import sbm.insuranceProject.models.PolicyType;
-import sbm.insuranceProject.services.PolicyService;
+import sbm.insuranceProject.services.PolicyTypeService;
+
 
 @Controller
-public class PolicyController {
+public class PolicyTypeController {
 
 	@Autowired
-	PolicyService policyService;
+	PolicyTypeService policyTypeService;
 	
 	@GetMapping("/listPolicies")
 	public String listPolicies(Model model) {
-		model.addAttribute("getAllPolicies", policyService.GetAll());
+		model.addAttribute("getAllPolicies", policyTypeService.GetAll());
 		return "listPolicies";
 	}
 	
@@ -31,7 +32,7 @@ public class PolicyController {
 	
 	@PostMapping("/addPolicy")
 	public String addPolicy(@ModelAttribute("policy") PolicyType policy) {
-		policyService.Add(policy);
+		policyTypeService.Add(policy);
 		return "redirect:/listPolicies";
 	}
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import sbm.insuranceProject.models.PolicyType;
 
-public interface PolicyService {
+public interface PolicyTypeService {
 
 	void Add(PolicyType policy);
 	List<PolicyType> GetAll();

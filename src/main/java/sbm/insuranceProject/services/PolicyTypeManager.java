@@ -9,7 +9,7 @@ import sbm.insuranceProject.daos.PolicyTypeDao;
 import sbm.insuranceProject.models.PolicyType;
 
 @Service
-public class PolicyManager implements PolicyService {
+public class PolicyTypeManager implements PolicyTypeService {
 
 	@Autowired
 	private PolicyTypeDao policyDao;
