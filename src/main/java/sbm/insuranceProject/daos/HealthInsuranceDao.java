@@ -3,9 +3,9 @@ package sbm.insuranceProject.daos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import sbm.insuranceProject.models.Bid;
+import sbm.insuranceProject.models.HealthInsurance;
 
 @Repository
-public interface BidDao extends JpaRepository<Bid, Integer> {
+public interface HealthInsuranceDao extends JpaRepository<HealthInsurance, Integer> {
 
 }

@@ -3,9 +3,9 @@ package sbm.insuranceProject.daos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import sbm.insuranceProject.models.PersonProperties;
+import sbm.insuranceProject.models.TrafficInsurance;
 
 @Repository
-public interface PersonPropertiesDao extends JpaRepository<PersonProperties, Integer> {
+public interface TrafficInsuranceDao extends JpaRepository<TrafficInsurance, Integer> {
 
 }

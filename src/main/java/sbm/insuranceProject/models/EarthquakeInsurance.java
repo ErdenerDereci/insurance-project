@@ -1,9 +1,9 @@
 package sbm.insuranceProject.models;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,16 +13,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class House {
+@DiscriminatorValue("Earthquake")
+public class EarthquakeInsurance extends Insurance {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private int ownerId;
+	@Column(name="address")
 	private String address;
+	
+	@Column(name="built_year")
 	private int builtYear;
+	
+	@Column(name="built_type")
 	private String builtType;
+	
+	@Column(name="floor_count")
 	private int floorCount;
+	
+	@Column(name="damage_status")
 	private String damageStatus;
 	
 }
