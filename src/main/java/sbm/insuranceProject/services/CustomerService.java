@@ -4,6 +4,6 @@ import sbm.insuranceProject.models.Customer;
 
 public interface CustomerService extends ServiceBase<Customer> {
 
-	
+		int customerInsuranceCount(int customerId);
 	
 }

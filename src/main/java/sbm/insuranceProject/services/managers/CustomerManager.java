@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import sbm.insuranceProject.daos.CustomerDao;
 import sbm.insuranceProject.models.Customer;
 import sbm.insuranceProject.services.CustomerService;
+import sbm.insuranceProject.utitilies.BusinessRules;
 
 @Service
 public class CustomerManager implements CustomerService{
@@ -18,14 +19,23 @@ public class CustomerManager implements CustomerService{
 	@Override
 	public void add(Customer person) {
 		
-		customerDao.save(person);
-		
+		boolean result=BusinessRules.CustomerRules.checkTcIfInDatabase(customerDao, person.getNationalityId());
+		if(!result) {
+			customerDao.save(person);
+		}
 	}
 
 	@Override
 	public List<Customer> getAll() {
 		return customerDao.findAll();
 	}
+
+	@Override
+	public int customerInsuranceCount(int customerId) {
+		return customerDao.customerInsuranceCount(customerId);
+	}
+
+	
 
 	
 

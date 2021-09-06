@@ -9,20 +9,28 @@
 	<div class="container-sm" style="margin-top: 50px;">
 		<form class="row g-3" action="#" th:action="@{/addCustomer}" th:object="${customer}" method="POST">
         <div class="col-md-6">
-            <label for="customerName" class="form-label">Customer Name</label>
+            <label for="customerName" class="form-label">Name</label>
             <input type="text" class="form-control" id="customerName" th:field="*{name}">
           </div>
           <div class="col-md-6">
-            <label for="customerSurname" class="form-label">Customer Surname</label>
+            <label for="customerSurname" class="form-label">Surname</label>
             <input type="text" class="form-control" id="customerSurname" th:field="*{surname}">
           </div>
           <div class="col-md-6">
-            <label for="customerEmail" class="form-label">Customer Email</label>
-            <input type="text" class="form-control" id="customerEmail" th:field="*{email}">
+            <label for="customerEmail" class="form-label">Gender</label>
+            <input type="text" class="form-control" id="customerEmail" th:field="*{gender}">
           </div>
           <div class="col-md-6">
-            <label for="customerAge" class="form-label">Customer Age</label>
-            <input type="text" class="form-control" id="customerAge" th:field="*{age}">
+            <label for="customerAge" class="form-label">Birth Year</label>
+            <input type="text" class="form-control" id="customerAge" th:field="*{birthYear}">
+          </div>
+          <div class="col-md-6">
+            <label for="customerAge" class="form-label">Email</label>
+            <input type="text" class="form-control" id="customerAge" th:field="*{email}">
+          </div>
+          <div class="col-md-6">
+            <label for="customerAge" class="form-label">Nationality Id</label>
+            <input type="text" class="form-control" id="customerAge" th:field="*{nationalityId}">
           </div>
 		<div class="col-12">
 		  <button type="submit" class="btn btn-primary">Add</button>

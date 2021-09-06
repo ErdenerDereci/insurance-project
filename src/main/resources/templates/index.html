@@ -14,23 +14,28 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Surname</th>
+                    <th>Gender</th>
+                    <th>Birth Year</th>
                     <th>Email</th>
-                    <th>Age</th>
+                    <th>Nationality Id</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="customer : ${listCustomers}">
+                <tr th:each="customer : ${customerList}">
                     <td th:text="${customer.id}"></td>
 					<td th:text="${customer.name}"></td>
                     <td th:text="${customer.surname}"></td>
-					<td th:text="${customer.email}"></td>
-                    <td th:text="${customer.age}"></td>
+					<td th:text="${customer.gender}"></td>
+                    <td th:text="${customer.birthYear}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.nationalityId}"></td>
                 </tr>
             </tbody>
         </table>
         <a th:href = "@{/newCustomerForm}" class="btn btn-primary" type="submit" >Add Customer</a>
-        <a th:href = "@{/listPolicies}" class="btn btn-primary" type="submit">Go to  Policy List</a>
-        <a th:href = "@{/listCustomerPolicies}" class="btn btn-primary" type="submit">Go to Customer Policies</a>
-    </div>
+        <a th:href = "@{/healthInsuranceList}" class="btn btn-primary" type="submit" >List Health Insurances</a>
+        <a th:href = "@{/earthquakeInsuranceList}" class="btn btn-primary" type="submit" >List Earthquake Insurances</a>
+        <a th:href = "@{/trafficInsuranceList}" class="btn btn-primary" type="submit" >List Traffic Insurances</a>
+        </div>
 </body>
 </html>

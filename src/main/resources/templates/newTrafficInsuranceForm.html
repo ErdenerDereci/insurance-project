@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Add Traffic Insurance</title>
+</head>
+<body>
+	<div class="col-lg-3" th:object="${trafficInsurance}">
+    <form class="row g-3" action="#" th:action="@{/addTrafficInsurance}" th:object="${trafficInsurance}" method="POST">
+          <div class="form-group blu-margin" style="margin-top:20px;">Customer Id
+                <select style="padding:10px;" th:field="*{customer}"  id="dropOperator">
+                <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
+                </select>
+            </div>
+          <div class="col-md-6">
+            <label for="lastYearsDamageGrade" class="form-label">Last Years Damage Grade</label>
+            <input type="text" class="form-control" id="lastYearsDamageGrade" th:field="*{lastYearsDamageGrade}">
+          </div>
+          <div class="col-md-6">
+            <label for="age" class="form-label">Age</label>
+            <input type="text" class="form-control" id="age" th:field="*{age}">
+          </div>
+          <div class="col-md-6">
+            <label for="brand" class="form-label">Brand</label>
+            <input type="text" class="form-control" id="brand" th:field="*{brand}">
+          </div>
+          <div class="col-md-6">
+            <label for="cityTrafficDensity" class="form-label">City Traffic Density</label>
+            <input type="text" class="form-control" id="cityTrafficDensity" th:field="*{cityTrafficDensity}">
+          </div>
+          <div class="col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input type="text" class="form-control" id="price" th:field="*{price}">
+          </div>
+          <div class="col-md-6">
+            <label for="discountRate" class="form-label">Discount Rate</label>
+            <input type="text" class="form-control" id="discountRate" th:field="*{discountRate}">
+          </div>
+          <div class="col-md-6">
+            <label for="discountedPrice" class="form-label">Discounted Price</label>
+            <input type="text" class="form-control" id="discountedPrice" th:field="*{discountedPrice}">
+          </div>
+            
+		
+		  <button type="submit" class="btn btn-primary" style="margin-top:20px;">Add</button>
+		   </form>
+		</div>
+	 
+
+	
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Add Health Insurance</title>
+</head>
+<body>
+	<div class="col-lg-3" th:object="${healthInsurance}">
+    <form class="row g-3" action="#" th:action="@{/addHealthInsurance}" th:object="${healthInsurance}" method="POST">
+          <div class="form-group blu-margin" style="margin-top:20px;">Customer Id
+                <select style="padding:10px;" th:field="*{customer}"  id="dropOperator">
+                <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
+                </select>
+            </div>
+          <div class="col-md-6">
+            <label for="height" class="form-label">Height</label>
+            <input type="text" class="form-control" id="height" th:field="*{height}">
+          </div>
+          <div class="col-md-6">
+            <label for="weight" class="form-label">Weight</label>
+            <input type="text" class="form-control" id="weight" th:field="*{weight}">
+          </div>
+          <div class="col-md-6">
+            <label for="illness" class="form-label">Illness</label>
+            <input type="text" class="form-control" id="illness" th:field="*{illnesses}">
+          </div>
+          
+            
+		
+		  <button type="submit" class="btn btn-primary" style="margin-top:20px;">Add</button>
+		   </form>
+		</div>
+	 
+
+	
+</body>
+</html>

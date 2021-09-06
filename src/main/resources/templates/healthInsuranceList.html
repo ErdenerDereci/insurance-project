@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Health Insurance List</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+	<div align="center" class="container-sm" style="margin-top: 50px;">
+        <h2>Health Insurance List</h2>
+        <table class="table table-bordered">
+            <thead> 
+                <tr>
+                    <th>Id</th>
+                    <th>Customer Id</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Illness</th>
+                    <th>Price</th>
+                    <th>Discount Rate</th>
+                    <th>Discounted Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="healthInsurance : ${healthInsuranceList}">
+                    <td th:text="${healthInsurance.id}"></td>
+					<td th:text="${healthInsurance.customer.id}"></td>
+                    <td th:text="${healthInsurance.height}"></td>
+					<td th:text="${healthInsurance.weight}"></td>
+                    <td th:text="${healthInsurance.illnesses}"></td>
+                    <td th:text="${healthInsurance.price}"></td>
+                    <td th:text="${healthInsurance.discountRate}"></td>
+                    <td th:text="${healthInsurance.discountedPrice}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href = "@{/newHealthInsuranceForm}" class="btn btn-primary" type="submit" >Add Health Insurance</a>
+        <a th:href = "@{/}" class="btn btn-primary" type="submit" >Go to Customer List</a>
+    </div>
+</body>
+</html>
