@@ -19,6 +19,7 @@
                     <th>Price</th>
                     <th>Discount Rate</th>
                     <th>Discounted Price</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,8 @@
                     <td th:text="${healthInsurance.price}"></td>
                     <td th:text="${healthInsurance.discountRate}"></td>
                     <td th:text="${healthInsurance.discountedPrice}"></td>
+                    <td> <a th:href="@{'updateHealthInsurance/'+${healthInsurance.id}}" class="btn btn-success">Update</a> <a th:href="@{'deleteHealthInsurance/'+${healthInsurance.id}}" class="btn btn-danger">Delete</a></td>
+                    
                 </tr>
             </tbody>
         </table>

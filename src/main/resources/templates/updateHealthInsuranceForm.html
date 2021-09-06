@@ -3,13 +3,13 @@
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <meta charset="UTF-8">
-<title>Add Health Insurance</title>
+<title>Update Health Insurance</title>
 </head>
 <body>
 	<div style="margin: auto; margin-top:50px" class="col-lg-3" th:object="${healthInsurance}">
-	<h2>Add Health Insurance</h2>
-    <form class="row g-6" action="#" th:action="@{/addHealthInsurance}" th:object="${healthInsurance}" method="POST">
-          <div class="form-group blu-margin col-md-12" style="margin-top:20px;">Customer Id
+	<h2>Update Health Insurance</h2>
+    <form class="row g-3" action="#" th:action="@{/updateHealthInsurance}" th:object="${healthInsurance}" method="POST">
+          <div class="form-group blu-margin" style="margin-top:20px;">Customer Id
                 <select style="padding:10px 48px;" th:field="*{customer}"  id="dropOperator">
                 <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
                 </select>

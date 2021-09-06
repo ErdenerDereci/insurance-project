@@ -42,6 +42,30 @@ public class EarthquakeInsuranceManager implements EarthquakeInsuranceService{
 		return customerService.getAll();
 	}
 
+	@Override
+	public void delete(EarthquakeInsurance entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(EarthquakeInsurance entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteById(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public EarthquakeInsurance getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

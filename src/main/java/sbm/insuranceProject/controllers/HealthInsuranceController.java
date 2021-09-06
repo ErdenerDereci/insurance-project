@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import sbm.insuranceProject.models.HealthInsurance;
@@ -33,5 +34,18 @@ public class HealthInsuranceController {
 	public String addHealthInsurance(@ModelAttribute("healthInsurance") HealthInsurance healthInsurance) {
 		healthInsuranceService.add(healthInsurance);
 		return "redirect:/healthInsuranceList";
+	}
+	
+	@GetMapping("/deleteHealthInsurance/{id}")
+	public String deleteHealthInsuance(@PathVariable(name="id") int id) {
+		healthInsuranceService.deleteById(id);
+		return "redirect:/healthInsuranceList";
+	}
+	@GetMapping("/updateHealthInsurance/{id}")
+	public String updateHealthInsuance(@PathVariable(name="id") int id,Model model) {
+		
+		model.addAttribute("healthInsurance", healthInsuranceService.getById(id));
+		model.addAttribute("customers", healthInsuranceService.getAllCustomers());
+		return "updateHealthInsuranceForm";
 	}
 }

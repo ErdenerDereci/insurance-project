@@ -34,6 +34,8 @@ public class HealthInsuranceManager implements HealthInsuranceService{
 		
 		if(BusinessRules.InsuranceRules.checkIfInsuranceCountCorrect(customerService, customerId)){
 			if(BusinessRules.InsuranceRules.checkIfCustomersHealthInsuranceExists(healthInsuranceDao,customerId)) {
+				
+				
 				int price=Helpers.HealthInsuranceHelper.getPrice(healthInsurance.getHeight(),
 						healthInsurance.getWeight(), healthInsurance.getIllnesses());
 				int discountRate=Helpers.HealthInsuranceHelper.getDiscountRate(healthInsurance.getHeight(),
@@ -60,6 +62,29 @@ public class HealthInsuranceManager implements HealthInsuranceService{
 	@Override
 	public List<Customer> getAllCustomers(){
 		return customerService.getAll();
+	}
+
+	@Override
+	public void delete(HealthInsurance entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(HealthInsurance entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteById(int id) {
+		healthInsuranceDao.deleteById(id);
+		
+	}
+
+	@Override
+	public HealthInsurance getById(int id) {
+		return healthInsuranceDao.getById(id);
 	}
 
 	

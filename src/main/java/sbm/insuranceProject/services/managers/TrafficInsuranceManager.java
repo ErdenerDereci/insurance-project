@@ -43,6 +43,30 @@ public class TrafficInsuranceManager implements TrafficInsuranceService{
 		return customerService.getAll();
 	}
 
+	@Override
+	public void delete(TrafficInsurance entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(TrafficInsurance entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteById(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TrafficInsurance getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

@@ -17,11 +17,11 @@ public class CustomerManager implements CustomerService{
 	private CustomerDao customerDao;
 	
 	@Override
-	public void add(Customer person) {
+	public void add(Customer entity) {
 		
-		boolean result=BusinessRules.CustomerRules.checkTcIfInDatabase(customerDao, person.getNationalityId());
+		boolean result=BusinessRules.CustomerRules.checkTcIfInDatabase(customerDao, entity.getNationalityId());
 		if(!result) {
-			customerDao.save(person);
+			customerDao.save(entity);
 		}
 	}
 
@@ -33,6 +33,30 @@ public class CustomerManager implements CustomerService{
 	@Override
 	public int customerInsuranceCount(int customerId) {
 		return customerDao.customerInsuranceCount(customerId);
+	}
+
+	@Override
+	public void delete(Customer entity) {
+		
+		
+	}
+
+	@Override
+	public void update(Customer entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteById(int id) {
+		customerDao.deleteById(id);
+		
+	}
+
+	@Override
+	public Customer getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

@@ -18,6 +18,7 @@
                     <th>Birth Year</th>
                     <th>Email</th>
                     <th>Nationality Id</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,7 @@
                     <td th:text="${customer.birthYear}"></td>
                     <td th:text="${customer.email}"></td>
                     <td th:text="${customer.nationalityId}"></td>
+                    <td> <a th:href="@{'deleteCustomer/'+${customer.id}}" class="btn btn-danger">Delete</a></td>
                 </tr>
             </tbody>
         </table>
