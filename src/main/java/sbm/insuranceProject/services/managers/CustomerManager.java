@@ -43,7 +43,7 @@ public class CustomerManager implements CustomerService{
 
 	@Override
 	public void update(Customer entity) {
-		// TODO Auto-generated method stub
+		customerDao.save(entity);
 		
 	}
 
@@ -55,8 +55,7 @@ public class CustomerManager implements CustomerService{
 
 	@Override
 	public Customer getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return customerDao.getById(id);
 	}
 
 	

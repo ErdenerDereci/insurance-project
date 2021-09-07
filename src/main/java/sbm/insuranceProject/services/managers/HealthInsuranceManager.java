@@ -72,7 +72,7 @@ public class HealthInsuranceManager implements HealthInsuranceService{
 
 	@Override
 	public void update(HealthInsurance entity) {
-		// TODO Auto-generated method stub
+		healthInsuranceDao.save(entity);
 		
 	}
 

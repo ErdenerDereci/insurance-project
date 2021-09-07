@@ -41,11 +41,18 @@ public class HealthInsuranceController {
 		healthInsuranceService.deleteById(id);
 		return "redirect:/healthInsuranceList";
 	}
-	@GetMapping("/updateHealthInsurance/{id}")
+	
+	/*
+	@GetMapping("/updateHealthInsuranceForm/{id}")
 	public String updateHealthInsuance(@PathVariable(name="id") int id,Model model) {
 		
 		model.addAttribute("healthInsurance", healthInsuranceService.getById(id));
 		model.addAttribute("customers", healthInsuranceService.getAllCustomers());
 		return "updateHealthInsuranceForm";
 	}
+	@PostMapping("/updateHealthInsurance")
+	public String updateHealthInsurance(@ModelAttribute("healthInsurance") HealthInsurance healthInsurance) {
+		healthInsuranceService.update(healthInsurance);
+		return "redirect:/healthInsuranceList";
+	}*/
 }

@@ -11,10 +11,7 @@
     <form class="row g-3" action="#" th:action="@{/addEarthquakeInsurance}" th:object="${earthquakeInsurance}" method="POST">
         
             
-            <div class="col-md-6">
-            <label for="id" class="form-label">Id</label>
-            <input type="text" class="form-control" id="id" th:field="*{id}">
-          </div>
+            
           <div class="form-group blu-margin" style="margin-top:20px;">Customer Id
                 <select style="padding:10px;" th:field="*{customer}"  id="dropOperator">
                 <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
