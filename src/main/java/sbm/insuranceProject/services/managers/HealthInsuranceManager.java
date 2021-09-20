@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import sbm.insuranceProject.daos.HealthInsuranceDao;
 import sbm.insuranceProject.models.Customer;
 import sbm.insuranceProject.models.HealthInsurance;
+import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerService;
 import sbm.insuranceProject.services.HealthInsuranceService;
 import sbm.insuranceProject.utitilies.BusinessRules;
-import sbm.insuranceProject.utitilies.Helpers;
+import sbm.insuranceProject.utitilies.helpers.Helpers;
+import sbm.insuranceProject.utitilies.helpers.entities.PriceProps;
 
 @Service
 public class HealthInsuranceManager implements HealthInsuranceService{
@@ -28,29 +30,25 @@ public class HealthInsuranceManager implements HealthInsuranceService{
 	}
 
 	@Override
-	public void add(HealthInsurance healthInsurance) {
+	public Result add(HealthInsurance healthInsurance) {
 		
 		int customerId=healthInsurance.getCustomer().getId();
 		
 		if(BusinessRules.InsuranceRules.checkIfInsuranceCountCorrect(customerService, customerId)){
 			if(BusinessRules.InsuranceRules.checkIfCustomersHealthInsuranceExists(healthInsuranceDao,customerId)) {
-				
-				
-				int price=Helpers.HealthInsuranceHelper.getPrice(healthInsurance.getHeight(),
+
+				PriceProps prices = Helpers.HealthInsuranceHelper.getPrices(healthInsurance.getHeight(),
 						healthInsurance.getWeight(), healthInsurance.getIllnesses());
-				int discountRate=Helpers.HealthInsuranceHelper.getDiscountRate(healthInsurance.getHeight(),
-						healthInsurance.getWeight(), healthInsurance.getIllnesses());
-				int discountedPrice = Helpers.HealthInsuranceHelper.getDiscountedPrice(price, discountRate);
-				
-				healthInsurance.setPrice(price);
-				healthInsurance.setDiscountRate(discountRate);
-				healthInsurance.setDiscountedPrice(discountedPrice);
+
+				healthInsurance.setPrice(prices.getPrice());
+				healthInsurance.setDiscountRate(prices.getDiscountRate());
+				healthInsurance.setDiscountedPrice(prices.getDiscountedPrice());
 				
 				healthInsuranceDao.save(healthInsurance);
 			}
 			
 		}
-		
+		return null;
 		
 	}
 

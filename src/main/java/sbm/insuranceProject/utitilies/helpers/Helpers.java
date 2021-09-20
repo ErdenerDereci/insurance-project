@@ -1,4 +1,6 @@
-package sbm.insuranceProject.utitilies;
+package sbm.insuranceProject.utitilies.helpers;
+
+import sbm.insuranceProject.utitilies.helpers.entities.PriceProps;
 
 public class Helpers {
 
@@ -7,7 +9,7 @@ public class Helpers {
 		private static int price=20000;
 		
 		//Price
-		public static int getPrice(int height,int weight,String illness) {
+		private static int getPrice(int height,int weight,String illness) {
 			
 			float bmi=getBodyMassIndex(height, weight);
 			int calculatedPrice=price;
@@ -23,7 +25,7 @@ public class Helpers {
 			}
 			return calculatedPrice;
 		}
-		public static int getDiscountRate(int height,int weight,String illness) {
+		private static int getDiscountRate(int height,int weight,String illness) {
 			float bmi=getBodyMassIndex(height, weight);
 			int discountRate=10;
 			if(bmi>40) {
@@ -38,8 +40,15 @@ public class Helpers {
 			}
 			return discountRate;
 		}
-		public static int getDiscountedPrice(int pricee,int discountRate) {
+		private static int getDiscountedPrice(int pricee,int discountRate) {
 			return pricee*(100-discountRate)/100;
+		}
+		public static PriceProps getPrices(int height,int weight,String illness){
+			int price = getPrice(height, weight, illness);
+			int discountRate= getDiscountRate(height, weight, illness);
+			int discountedPrice = getDiscountedPrice(price,discountRate);
+			PriceProps prices = new PriceProps(price,discountRate,discountedPrice);
+			return  prices;
 		}
 		private static float getBodyMassIndex(float height,float weight) {
 			float heightx=height/100;

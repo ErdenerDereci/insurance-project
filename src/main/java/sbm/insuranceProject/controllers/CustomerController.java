@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import sbm.insuranceProject.models.Customer;
+import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerService;
 import sbm.insuranceProject.utitilies.forms.CustomerForm;
 
@@ -26,15 +27,23 @@ public class CustomerController {
 	
 	@GetMapping("/newCustomerForm")
 	public String newCustomerForm(Model model) {
-		Customer customer = new Customer();
-		model.addAttribute("customer", customer);
+		
+		CustomerForm customerForm= new CustomerForm();
+		model.addAttribute("customerForm", customerForm);
+		model.addAttribute("result",new Result("",true));
 		return "newCustomerForm";
 		
 	}
 	@PostMapping("/addCustomer")
-	public String addCustomer(@ModelAttribute("customer") Customer customer) {
-		customerService.add(customer);
-		return "redirect:/";
+	public String addCustomer(@ModelAttribute("customerForm") CustomerForm customerForm,Model model) {
+		Customer customer= mapCustomerFormWithCustomer(customerForm,new Customer());
+		Result result=customerService.add(customer);
+		if(result.isSuccess()) {
+			return "redirect:/";
+		}
+		model.addAttribute("result", result);
+		return "newCustomerForm";
+		
 	}
 	@GetMapping("/deleteCustomer/{id}")
 	public String deleteCustomer(@PathVariable(name="id") int id) {
@@ -51,7 +60,7 @@ public class CustomerController {
 	@PostMapping("/updateCustomer")
 	public String updateCustomer(@ModelAttribute("customerForm") CustomerForm customerForm) {;
 		
-		Customer customer = mapCustomerFormWithCustomer(customerForm);
+		Customer customer = mapCustomerFormWithCustomer(customerForm,customerService.getById(customerForm.getId()));
 		customerService.update(customer);
 		return "redirect:/";
 	}
@@ -70,9 +79,9 @@ public class CustomerController {
 		return customerForm;
 	}
 	
-	private Customer mapCustomerFormWithCustomer(CustomerForm customerForm) {
+	private Customer mapCustomerFormWithCustomer(CustomerForm customerForm,Customer customer) {
 		
-		Customer customer = customerService.getById(customerForm.getId());
+
 		customer.setBirthYear(customerForm.getBirthYear());
 		customer.setEmail(customerForm.getEmail());
 		customer.setGender(customerForm.getGender());

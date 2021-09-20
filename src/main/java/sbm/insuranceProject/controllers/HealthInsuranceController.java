@@ -16,6 +16,7 @@ public class HealthInsuranceController {
 
 	@Autowired
 	private HealthInsuranceService healthInsuranceService;
+
 	@GetMapping("/healthInsuranceList")
 	public String listHealthInsurances(Model model) {
 		model.addAttribute("healthInsuranceList", healthInsuranceService.getAll());

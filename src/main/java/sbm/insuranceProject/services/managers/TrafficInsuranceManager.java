@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import sbm.insuranceProject.daos.TrafficInsuranceDao;
 import sbm.insuranceProject.models.Customer;
 import sbm.insuranceProject.models.TrafficInsurance;
+import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerService;
 import sbm.insuranceProject.services.TrafficInsuranceService;
 
@@ -25,10 +26,10 @@ public class TrafficInsuranceManager implements TrafficInsuranceService{
 	}
 	
 	@Override
-	public void add(TrafficInsurance trafficInsurance) {
+	public Result add(TrafficInsurance trafficInsurance) {
 		
 		trafficInsuranceDao.save(trafficInsurance);
-		
+		return null;
 	}
 
 	

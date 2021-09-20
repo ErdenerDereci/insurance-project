@@ -8,36 +8,40 @@
 <body>
 	<div style="margin: auto; margin-top:50px" class="container-sm">
 		<h2>Add Customer</h2>
-		<form class="row g-3" action="#" th:action="@{/addCustomer}" th:object="${customer}" method="POST">
+		<form onsubmit="return confirm('Are you sure you want to add?');" class="row g-3" action="#" th:action="@{/addCustomer}" th:object="${customerForm}" method="POST">
         <div class="col-md-6">
             <label for="customerName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="customerName" th:field="*{name}">
+            <input required type="text" class="form-control" id="customerName" th:field="*{name}">
           </div>
           <div class="col-md-6">
             <label for="customerSurname" class="form-label">Surname</label>
-            <input type="text" class="form-control" id="customerSurname" th:field="*{surname}">
+            <input required type="text" class="form-control" id="customerSurname" th:field="*{surname}">
           </div>
           <div class="col-md-6">
             <label for="customerEmail" class="form-label">Gender</label>
-            <input type="text" class="form-control" id="customerEmail" th:field="*{gender}">
+            <input required type="text" class="form-control" id="customerEmail" th:field="*{gender}">
           </div>
           <div class="col-md-6">
-            <label for="customerAge" class="form-label">Birth Year</label>
-            <input type="text" class="form-control" id="customerAge" th:field="*{birthYear}">
+            <label for="birthYear" class="form-label">Birth Year</label>
+            <input required type="text" class="form-control" id="birthYear" th:field="*{birthYear}">
           </div>
           <div class="col-md-6">
-            <label for="customerAge" class="form-label">Email</label>
-            <input type="text" class="form-control" id="customerAge" th:field="*{email}">
+            <label for="email" class="form-label">Email</label>
+            <input required type="text" class="form-control" id="email" th:field="*{email}">
           </div>
           <div class="col-md-6">
-            <label for="customerAge" class="form-label">Nationality Id</label>
-            <input type="text" class="form-control" id="customerAge" th:field="*{nationalityId}">
+            <label  for="nationalityId" class="form-label">Nationality Id</label>
+            <input required type="text" class="form-control" id="nationalityId" th:field="*{nationalityId}">
           </div>
 		<div class="col-12">
 		  <button type="submit" class="btn btn-primary">Add</button>
 		</div>
 	  </form>
+    <div style="margin-top: 15px; transition-duration: 5s;" class="alert alert-danger" role="alert" th:if="${result.success == false}" th:text="${result.message}">
+
+    </div>
 	</div>
-	
+  
+  
 </body>
 </html>

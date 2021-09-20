@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import sbm.insuranceProject.daos.CustomerDao;
 import sbm.insuranceProject.models.Customer;
+import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerService;
 import sbm.insuranceProject.utitilies.BusinessRules;
 
@@ -17,12 +18,15 @@ public class CustomerManager implements CustomerService{
 	private CustomerDao customerDao;
 	
 	@Override
-	public void add(Customer entity) {
+	public Result add(Customer entity) {
 		
 		boolean result=BusinessRules.CustomerRules.checkTcIfInDatabase(customerDao, entity.getNationalityId());
 		if(!result) {
 			customerDao.save(entity);
+			return new Result("Kisi kaydedildi.",true);
 		}
+		return new Result("Bu kisi zaten veritabaninda mecvut",false);
+		
 	}
 
 	@Override

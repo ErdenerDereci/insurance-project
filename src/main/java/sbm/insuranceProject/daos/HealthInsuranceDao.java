@@ -10,4 +10,6 @@ import sbm.insuranceProject.models.HealthInsurance;
 public interface HealthInsuranceDao extends JpaRepository<HealthInsurance, Integer> {
 	@Query(value="SELECT count(*) FROM insurances i WHERE i.customer_id=:customerId and i.insurance_type='Health'",nativeQuery = true)
 	int checkIfExistsByCustomerId(int customerId);
+
+
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import sbm.insuranceProject.daos.EarthquakeInsuranceDao;
 import sbm.insuranceProject.models.Customer;
 import sbm.insuranceProject.models.EarthquakeInsurance;
+import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerService;
 import sbm.insuranceProject.services.EarthquakeInsuranceService;
 
@@ -25,10 +26,10 @@ public class EarthquakeInsuranceManager implements EarthquakeInsuranceService{
 	}
 
 	@Override
-	public void add(EarthquakeInsurance earthquakeInsurance) {
+	public Result add(EarthquakeInsurance earthquakeInsurance) {
 		
 		earthquakeInsuranceDao.save(earthquakeInsurance);
-		
+		return null;
 	}
 
 	@Override
