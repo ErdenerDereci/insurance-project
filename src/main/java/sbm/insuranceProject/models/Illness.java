@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="illnesses")
+@Entity
+@Table(name="illnesses")
 public class Illness {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

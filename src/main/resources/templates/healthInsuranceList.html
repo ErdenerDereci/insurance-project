@@ -7,7 +7,6 @@
 <link rel="stylesheet"  th:href="@{/css/style.css}">
 </head>
 <body>
-    <p style="position: absolute;" class="ilnesslist">2</p>
 	<div align="center" class="container-sm" style="margin-top: 50px; position: relative">
         <h2>Health Insurance List</h2>
         <table class="table table-bordered">
@@ -27,14 +26,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="healthInsurance : ${healthInsuranceList}">
+                <tr th:each="healthInsurance : ${healthInsuranceForms}">
                     <td th:text="${healthInsurance.id}"></td>
-					<td th:text="${healthInsurance.customer.name}"></td>
-                    <td th:text="${healthInsurance.customer.surname}"></td>
-                    <td th:text="${healthInsurance.customer.nationalityId}"></td>
+					<td th:text="${healthInsurance.customerName}"></td>
+                    <td th:text="${healthInsurance.customerSurname}"></td>
+                    <td th:text="${healthInsurance.nationalityId}"></td>
                     <td th:text="${healthInsurance.height}"></td>
 					<td th:text="${healthInsurance.weight}"></td>
-                    <td> <button class="btn btn-info" style="color: white">List Ilnesses</button></td>
+                    <td th:text="${healthInsurance.illnesses}"></td>
                     <td th:text="${healthInsurance.price}"></td>
                     <td th:text="${healthInsurance.discountRate}"></td>
                     <td th:text="${healthInsurance.discountedPrice}"></td>
