@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import sbm.insuranceProject.models.HealthInsurance;
 import sbm.insuranceProject.services.HealthInsuranceService;
+import sbm.insuranceProject.services.IllnessService;
 import sbm.insuranceProject.utitilies.forms.HealthInsuranceForm;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class HealthInsuranceController {
 
 	@Autowired
 	private HealthInsuranceService healthInsuranceService;
+	@Autowired
+	private IllnessService illnessService;
+
 
 	@GetMapping("/healthInsuranceList")
 	public String listHealthInsurances(Model model) {
@@ -32,6 +36,7 @@ public class HealthInsuranceController {
 		HealthInsurance healthInsurance = new HealthInsurance();
 		model.addAttribute("healthInsurance", healthInsurance);
 		model.addAttribute("customers", healthInsuranceService.getAllCustomers());
+		model.addAttribute("illnesses",illnessService.getAll());
 		return "newHealthInsuranceForm";
 	}
 	

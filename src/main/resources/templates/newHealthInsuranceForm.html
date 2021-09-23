@@ -22,15 +22,21 @@
             <label for="weight" class="form-label">Weight</label>
             <input type="text" class="form-control" id="weight" th:field="*{weight}">
           </div>
-          <div class="col-md-6">
-            <label for="illness" class="form-label">Illness</label>
-            <input type="text" class="form-control" id="illness" th:field="*{illnesses}">
-          </div>
-          
-            
-		
 		  <button type="submit" class="btn btn-primary" style="margin-top:20px;">Add</button>
 		   </form>
+        <form class="row g-6" action="#" th:action="@{/addIllness}" th:object="${illnesses}" method="POST">
+            <div class="form-group blu-margin col-md-12" style="margin-top:20px;">Customer Id
+                <select style="padding:10px 48px;"    id="dropOperator">
+                    <option th:each="illness : ${illnesses}" th:value="${illness.id}" th:text="${illness.id}+' - '+${illness.name}"></option>
+                </select>
+            </div>
+            <div class="form-group blu-margin col-md-12" style="margin-top:20px;">Illness Id
+                <select style="padding:10px 48px;"    id="dropOperator">
+                    <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:20px;">Add</button>
+        </form>
 		</div>
 	 
 

@@ -18,5 +18,5 @@ public class Illness {
     private int id;
 
     @Column(name="name")
-    private int name;
+    private String name;
 }
