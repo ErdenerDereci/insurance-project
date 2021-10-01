@@ -8,6 +8,7 @@ import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.IllnessService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IllnessManager implements IllnessService {
@@ -36,12 +37,17 @@ public class IllnessManager implements IllnessService {
     }
 
     @Override
-    public void update(Illness entity) {
-
+    public Result update(Illness entity) {
+        return null;
     }
 
     @Override
     public Illness getById(int id) {
         return null;
+    }
+
+    @Override
+    public Optional<Illness> findById(int id) {
+       return illnessDao.findById(id);
     }
 }

@@ -5,10 +5,18 @@
 <meta charset="UTF-8">
 <title>Add Customer</title>
 </head>
+<header>
+    <div align="center" class="container-sm" style="margin-top: 50px;">
+        <a th:href = "@{/}" class="btn btn-primary" type="submit" >Customer List</a>
+        <a th:href = "@{/healthInsuranceList}" class="btn btn-primary" type="submit" >Health Insurance List</a>
+        <a th:href = "@{/earthquakeInsuranceList}" class="btn btn-primary" type="submit" >Earthquake Insurance List</a>
+        <a th:href = "@{/trafficInsuranceList}" class="btn btn-primary" type="submit" >Traffic Insurance</a>
+    </div>
+</header>
 <body>
 	<div style="margin: auto; margin-top:50px" class="container-sm">
 		<h2>Add Customer</h2>
-		<form onsubmit="return confirm('Are you sure you want to add?');" class="row g-3" action="#" th:action="@{/addCustomer}" th:object="${customerForm}" method="POST">
+		<form onsubmit="return confirm('Veriyi eklemek istediginizden emin misiniz ?');" class="row g-3" action="#" th:action="@{/addCustomer}" th:object="${customerForm}" method="POST">
         <div class="col-md-6">
             <label for="customerName" class="form-label">Name</label>
             <input required type="text" class="form-control" id="customerName" th:field="*{name}">
@@ -18,8 +26,8 @@
             <input required type="text" class="form-control" id="customerSurname" th:field="*{surname}">
           </div>
           <div class="col-md-6">
-            <label for="customerEmail" class="form-label">Gender</label>
-            <input required type="text" class="form-control" id="customerEmail" th:field="*{gender}">
+            <label for="gender" class="form-label">Gender</label>
+            <input required type="text" class="form-control" id="gender" th:field="*{gender}">
           </div>
           <div class="col-md-6">
             <label for="birthYear" class="form-label">Birth Year</label>
@@ -27,7 +35,7 @@
           </div>
           <div class="col-md-6">
             <label for="email" class="form-label">Email</label>
-            <input required type="text" class="form-control" id="email" th:field="*{email}">
+            <input required type="email" class="form-control" id="email" th:field="*{email}">
           </div>
           <div class="col-md-6">
             <label  for="nationalityId" class="form-label">Nationality Id</label>

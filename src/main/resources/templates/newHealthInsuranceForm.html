@@ -5,41 +5,81 @@
 <meta charset="UTF-8">
 <title>Add Health Insurance</title>
 </head>
+<header>
+    <div align="center" class="container-sm" style="margin-top: 50px;">
+        <a th:href = "@{/}" class="btn btn-primary" type="submit" >Customer List</a>
+        <a th:href = "@{/healthInsuranceList}" class="btn btn-primary" type="submit" >Health Insurance List</a>
+        <a th:href = "@{/earthquakeInsuranceList}" class="btn btn-primary" type="submit" >Earthquake Insurance List</a>
+        <a th:href = "@{/trafficInsuranceList}" class="btn btn-primary" type="submit" >Traffic Insurance</a>
+    </div>
+</header>
 <body>
-	<div style="margin: auto; margin-top:50px" class="col-lg-3" th:object="${healthInsurance}">
+	<div style="margin: auto; margin-top:50px" class="col-lg-3" th:object="${addHealthInsuranceForm}">
 	<h2>Add Health Insurance</h2>
-    <form class="row g-6" action="#" th:action="@{/addHealthInsurance}" th:object="${healthInsurance}" method="POST">
+    <form onsubmit="return confirm('Veriyi eklemek istediginizden emin misiniz ?');" class="row g-6" action="#" th:action="@{/addHealthInsurance}" th:object="${addHealthInsuranceForm}" method="POST">
           <div class="form-group blu-margin col-md-12" style="margin-top:20px;">Customer Id
-                <select style="padding:10px 48px;" th:field="*{customer}"  id="dropOperator">
-                <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
+                <select class="form-select" id="customerId" style="padding:10px 48px;" th:field="*{customer}" >
+                <option  th:each="customer1 : ${customers}" th:value="${customer1.id}" th:text="${customer1.id}+' - '+${customer1.name}+' '+${customer1.surname}+' - '+${customer1.email}"></option>
                 </select>
             </div>
           <div class="col-md-6">
             <label for="height" class="form-label">Height</label>
-            <input type="text" class="form-control" id="height" th:field="*{height}">
+            <input required type="text" class="form-control" id="height" th:field="*{height}">
           </div>
           <div class="col-md-6">
             <label for="weight" class="form-label">Weight</label>
-            <input type="text" class="form-control" id="weight" th:field="*{weight}">
+            <input required type="text" class="form-control" id="weight" th:field="*{weight}">
           </div>
-		  <button type="submit" class="btn btn-primary" style="margin-top:20px;">Add</button>
-		   </form>
-        <form class="row g-6" action="#" th:action="@{/addIllness}" th:object="${illnesses}" method="POST">
-            <div class="form-group blu-margin col-md-12" style="margin-top:20px;">Customer Id
-                <select style="padding:10px 48px;"    id="dropOperator">
-                    <option th:each="illness : ${illnesses}" th:value="${illness.id}" th:text="${illness.id}+' - '+${illness.name}"></option>
-                </select>
-            </div>
-            <div class="form-group blu-margin col-md-12" style="margin-top:20px;">Illness Id
-                <select style="padding:10px 48px;"    id="dropOperator">
-                    <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary" style="margin-top:20px;">Add</button>
-        </form>
-		</div>
-	 
 
-	
+        <table class="table table-bordered" style="margin-top: 20px;">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Illness Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="illness : ${illnesses}">
+                <td th:text="${illness.id}"></td>
+                <td th:text="${illness.name}"></td>
+`               <td th:if="illness!=null"><a th:href = "@{'deleteFromIllnessList/'+${illness.id}}" class="btn btn-danger" type="submit" >Delete</a></td>
+            </tr>
+            <td></td>
+            <td></td>
+            <td><a th:href = "@{/newIllnessForm}" class="btn btn-primary" onclick="AddToLocalStorage()" type="submit" >Add Illness</a></td>
+            </tbody>
+        </table>
+		  <button type="submit" class="btn btn-primary" onclick="AddToLocalStorage()" style="margin-top:20px;">Add</button>
+		   </form>
+        <div id="warningDiv" style="margin-top: 15px; transition-duration: 5s;"  class="alert alert-danger" role="alert" th:if="${result.success == false}" th:text="${result.message}"></div>
+    </div>
+    <script>
+        var combobox=document.getElementById("customerId")
+        var height = document.getElementById("height")
+        var weight = document.getElementById("weight")
+
+        if(window.sessionStorage.length!=0){
+
+            var comId =window.sessionStorage.getItem("customerId")
+            var comText =window.sessionStorage.getItem("customerText")
+            var h =window.sessionStorage.getItem("height")
+            var w =window.sessionStorage.getItem("weight")
+
+            combobox.value=comId;
+            combobox.options[combobox.selectedIndex].text=comText
+            height.value = h
+            weight.value =w
+        }
+
+        function AddToLocalStorage(){
+
+            window.sessionStorage.setItem("customerId",combobox.value)
+            window.sessionStorage.setItem("customerText",combobox.options[combobox.selectedIndex].text)
+            window.sessionStorage.setItem("height",height.value)
+            window.sessionStorage.setItem("weight",weight.value)
+        }
+
+    </script>
 </body>
 </html>

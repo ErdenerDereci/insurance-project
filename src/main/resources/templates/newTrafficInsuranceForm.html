@@ -5,48 +5,48 @@
 <meta charset="UTF-8">
 <title>Add Traffic Insurance</title>
 </head>
+<header>
+    <div align="center" class="container-sm" style="margin-top: 50px;">
+        <a th:href = "@{/}" class="btn btn-primary" type="submit" >Customer List</a>
+        <a th:href = "@{/healthInsuranceList}" class="btn btn-primary" type="submit" >Health Insurance List</a>
+        <a th:href = "@{/earthquakeInsuranceList}" class="btn btn-primary" type="submit" >Earthquake Insurance List</a>
+        <a th:href = "@{/trafficInsuranceList}" class="btn btn-primary" type="submit" >Traffic Insurance</a>
+    </div>
+</header>
 <body>
-	<div style="margin: auto; margin-top:50px" class="col-lg-3" th:object="${trafficInsurance}">
-	<h2>AAdd Traffic Insurance</h2>
-    <form class="row g-3" action="#" th:action="@{/addTrafficInsurance}" th:object="${trafficInsurance}" method="POST">
+	<div style="margin: auto; margin-top:50px" class="col-lg-3" th:object="${TrafficInsuranceForm}">
+	<h2>Add Traffic Insurance</h2>
+    <form class="row g-3" onsubmit="return confirm('Veriyi eklemek istediginizden emin misiniz ?');" action="#" th:action="@{/addTrafficInsurance}" th:object="${TrafficInsuranceForm}" method="POST">
           <div class="form-group blu-margin" style="margin-top:20px;">Customer Id
-                <select style="padding:10px;" th:field="*{customer}"  id="dropOperator">
+                <select  class="form-select" style="padding:10px;" th:field="*{customer}"  id="dropOperator">
                 <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.id}+' - '+${customer.name}+' '+${customer.surname}+' - '+${customer.email}"></option>
                 </select>
             </div>
           <div class="col-md-6">
             <label for="lastYearsDamageGrade" class="form-label">Last Years Damage Grade</label>
-            <input type="text" class="form-control" id="lastYearsDamageGrade" th:field="*{lastYearsDamageGrade}">
+            <input type="number" required class="form-control" id="lastYearsDamageGrade" th:field="*{lastYearsDamageGrade}">
           </div>
           <div class="col-md-6">
             <label for="age" class="form-label">Age</label>
-            <input type="text" class="form-control" id="age" th:field="*{age}">
+            <input type="number" required class="form-control" id="age" th:field="*{age}">
           </div>
-          <div class="col-md-6">
-            <label for="brand" class="form-label">Brand</label>
-            <input type="text" class="form-control" id="brand" th:field="*{brand}">
-          </div>
-          <div class="col-md-6">
-            <label for="cityTrafficDensity" class="form-label">City Traffic Density</label>
-            <input type="text" class="form-control" id="cityTrafficDensity" th:field="*{cityTrafficDensity}">
-          </div>
-          <div class="col-md-6">
-            <label for="price" class="form-label">Price</label>
-            <input type="text" class="form-control" id="price" th:field="*{price}">
-          </div>
-          <div class="col-md-6">
-            <label for="discountRate" class="form-label">Discount Rate</label>
-            <input type="text" class="form-control" id="discountRate" th:field="*{discountRate}">
-          </div>
-          <div class="col-md-6">
-            <label for="discountedPrice" class="form-label">Discounted Price</label>
-            <input type="text" class="form-control" id="discountedPrice" th:field="*{discountedPrice}">
-          </div>
-            
-		
+        <div class="form-group blu-margin" style="margin-top:20px;">Brand
+            <select style="padding:10px;" th:field="*{brand}" class="form-select"  id="brand">
+                <option value="BMW">BMW</option>
+                <option value="MERCEDES">MERCEDES</option>
+            </select>
+        </div>
+        <div class="form-group blu-margin" style="margin-top:20px;">City Traffic Density
+            <select class="form-select" style="padding:10px;" th:field="*{cityTrafficDensity}"  id="cityTrafficDensity">
+                <option value="NORMAL">NORMAL</option>
+                <option value="YOGUN">YOGUN</option>
+            </select>
+        </div>
 		  <button type="submit" class="btn btn-primary" style="margin-top:20px;">Add</button>
 		   </form>
-		</div>
+        <div id="warningDiv" style="margin-top: 15px; transition-duration: 5s;"  class="alert alert-danger" role="alert" th:if="${result.success == false}" th:text="${result.message}"></div>
+
+    </div>
 	 
 
 	

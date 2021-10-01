@@ -5,6 +5,14 @@
 <title>Customer List</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
+<header>
+    <div align="center" class="container-sm" style="margin-top: 50px;">
+    <a th:href = "@{/}" class="btn btn-primary" type="submit" >Customer List</a>
+    <a th:href = "@{/healthInsuranceList}" class="btn btn-primary" type="submit" >Health Insurance List</a>
+    <a th:href = "@{/earthquakeInsuranceList}" class="btn btn-primary" type="submit" >Earthquake Insurance List</a>
+    <a th:href = "@{/trafficInsuranceList}" class="btn btn-primary" type="submit" >Traffic Insurance</a>
+    </div>
+</header>
 <body>
 	<div align="center" class="container-sm" style="margin-top: 50px;">
         <h2>Customer List</h2>
@@ -18,6 +26,7 @@
                     <th>Birth Year</th>
                     <th>Email</th>
                     <th>Nationality Id</th>
+                    <th>Status</th>
                     <th>Actions</th>
                     
                 </tr>
@@ -31,14 +40,15 @@
                     <td th:text="${customer.birthYear}"></td>
                     <td th:text="${customer.email}"></td>
                     <td th:text="${customer.nationalityId}"></td>
-                    <td><a th:href="@{'updateCustomerForm/'+${customer.id}}" class="btn btn-success">Update</a>   <a th:href="@{'deleteCustomer/'+${customer.id}}" class="btn btn-danger">Delete</a></td>
+                    <td th:text="${customer.status}"></td>
+                    <td th:if="${customer.status==true}"><a th:href="@{'updateCustomerForm/'+${customer.id}}" class="btn btn-success">Update</a>  <a onclick="return confirm('Emin misiniz ?')" th:href="@{'setStatusFalse/'+${customer.id}}" class="btn btn-danger">Delete</a></td>
+                    <td th:if="${customer.status==false}"><a onclick="return confirm('Emin misiniz ?')" th:href="@{'setStatusTrue/'+${customer.id}}" class="btn btn-success">Set Status True</a></td>
                 </tr>
             </tbody>
         </table>
-        <a th:href = "@{/newCustomerForm}" class="btn btn-primary" type="submit" >Add Customer</a>
-        <a th:href = "@{/healthInsuranceList}" class="btn btn-primary" type="submit" >List Health Insurances</a>
-        <a th:href = "@{/earthquakeInsuranceList}" class="btn btn-primary" type="submit" >List Earthquake Insurances</a>
-        <a th:href = "@{/trafficInsuranceList}" class="btn btn-primary" type="submit" >List Traffic Insurances</a>
-        </div>
+        <a th:href = "@{/newCustomerForm}" class="btn btn-success" type="submit" >Add Customer</a>
+        <a th:href = "@{/listActiveCustomers}" class="btn btn-outline-info" type="submit" >Show Active Customers</a>
+        <a th:href = "@{/listInActiveCustomers}" class="btn btn-outline-secondary" type="submit" >Show InActive Customers</a>
+    </div>
 </body>
 </html>

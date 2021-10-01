@@ -6,8 +6,7 @@ import sbm.insuranceProject.daos.CustomerIllnessDao;
 import sbm.insuranceProject.models.CustomerIllness;
 import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerIllnessService;
-import sbm.insuranceProject.utitilies.forms.CustomerIllnessDto;
-import sbm.insuranceProject.utitilies.forms.CustomerIllnessForm;
+import sbm.insuranceProject.utitilies.forms.customerForms.CustomerIllnessDto;
 
 import java.util.List;
 
@@ -29,6 +28,7 @@ public class CustomerIllnessManager implements CustomerIllnessService {
 
     @Override
     public Result add(CustomerIllness entity) {
+        customerIllnessDao.save(entity);
         return null;
     }
 
@@ -48,8 +48,8 @@ public class CustomerIllnessManager implements CustomerIllnessService {
     }
 
     @Override
-    public void update(CustomerIllness entity) {
-
+    public Result update(CustomerIllness entity) {
+        return null;
     }
 
     @Override

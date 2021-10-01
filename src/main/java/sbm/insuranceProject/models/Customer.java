@@ -47,4 +47,7 @@ public class Customer {
 	
 	@OneToMany(mappedBy="customer")
 	private List<Insurance> insurances;
+
+	@Column(name="status")
+	private boolean status;
 }

@@ -5,6 +5,14 @@
 <title>Earthquake Insurance List</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
+<header>
+    <div align="center" class="container-sm" style="margin-top: 50px;">
+        <a th:href = "@{/}" class="btn btn-primary" type="submit" >Customer List</a>
+        <a th:href = "@{/healthInsuranceList}" class="btn btn-primary" type="submit" >Health Insurance List</a>
+        <a th:href = "@{/earthquakeInsuranceList}" class="btn btn-primary" type="submit" >Earthquake Insurance List</a>
+        <a th:href = "@{/trafficInsuranceList}" class="btn btn-primary" type="submit" >Traffic Insurance</a>
+    </div>
+</header>
 <body>
 	<div align="center" class="container-sm" style="margin-top: 50px;">
         <h2>Earthquake Insurance List</h2>
@@ -12,7 +20,8 @@
             <thead> 
                 <tr>
                     <th>Id</th>
-                    <th>Customer Id</th>
+                    <th>Customer Name</th>
+                    <th>Customer Surname</th>
                     <th>Address</th>
                     <th>Built Year</th>
                     <th>Built Type</th>
@@ -21,12 +30,14 @@
                     <th>Price</th>
                     <th>Discount Rate</th>
                     <th>Discounted Price</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="earthquakeInsurance : ${earthquakeInsuranceList}">
                     <td th:text="${earthquakeInsurance.id}"></td>
-					<td th:text="${earthquakeInsurance.customer.id}"></td>
+					<td th:text="${earthquakeInsurance.customer.name}"></td>
+                    <td th:text="${earthquakeInsurance.customer.surname}"></td>
                     <td th:text="${earthquakeInsurance.address}"></td>
 					<td th:text="${earthquakeInsurance.builtYear}"></td>
                     <td th:text="${earthquakeInsurance.builtType}"></td>
@@ -35,11 +46,15 @@
                     <td th:text="${earthquakeInsurance.price}"></td>
                     <td th:text="${earthquakeInsurance.discountRate}"></td>
                     <td th:text="${earthquakeInsurance.discountedPrice}"></td>
+                    <td><a style="min-width: 100px; margin-top: 5px;" th:href="@{'deleteEarthquakeInsurance/'+${earthquakeInsurance.id}}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a></td>
+
                 </tr>
             </tbody>
         </table>
         <a th:href = "@{/newEarthquakeInsuranceForm}" class="btn btn-primary" type="submit" >Add Earthquake Insurance</a>
-        <a th:href = "@{/}" class="btn btn-primary" type="submit" >Go to Customer List</a>
+        <div style="margin-top: 15px; transition-duration: 5s;" class="alert alert-danger" role="alert" th:if="${result.success == false}" th:text="${result.message}">
+
+        </div>
     </div>
 </body>
 </html>

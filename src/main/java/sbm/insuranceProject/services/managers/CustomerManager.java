@@ -40,14 +40,35 @@ public class CustomerManager implements CustomerService{
 	}
 
 	@Override
+	public void setStatus(boolean status, int customerId) {
+		customerDao.setStatus(status,customerId);
+	}
+
+	@Override
+	public List<Customer> getAllTrue() {
+		return customerDao.getAllTrue();
+	}
+
+	@Override
+	public List<Customer> getAllFalse() {
+		return customerDao.getAllFalse();
+	}
+
+	@Override
 	public void delete(Customer entity) {
 		
 		
 	}
 
 	@Override
-	public void update(Customer entity) {
-		customerDao.save(entity);
+	public Result update(Customer entity) {
+		boolean result=BusinessRules.CustomerRules.checkTcIfInDatabase(customerDao, entity.getNationalityId());
+		if(!result) {
+			customerDao.save(entity);
+			return new Result("Kisi guncellendi.",true);
+		}
+		return new Result("Bu kisi zaten veritabaninda mevcut",false);
+
 		
 	}
 

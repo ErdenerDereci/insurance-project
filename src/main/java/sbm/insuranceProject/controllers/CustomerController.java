@@ -3,15 +3,12 @@ package sbm.insuranceProject.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import sbm.insuranceProject.models.Customer;
 import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerService;
-import sbm.insuranceProject.utitilies.forms.CustomerForm;
+import sbm.insuranceProject.utitilies.forms.customerForms.CustomerForm;
 
 @Controller
 public class CustomerController {
@@ -21,10 +18,20 @@ public class CustomerController {
 	
 	@GetMapping("/")
 	public String getCustomers(Model model) {
-		model.addAttribute("customerList", customerService.getAll());
+		model.addAttribute("customerList", customerService.getAllTrue());
 		return "index";
 	}
-	
+	@GetMapping("/listActiveCustomers")
+	public String listActiveCustomers(Model model){
+		model.addAttribute("customerList", customerService.getAllTrue());
+		return "index";
+	}
+	@GetMapping("/listInActiveCustomers")
+	public String listInActiveCustomers(Model model){
+		model.addAttribute("customerList", customerService.getAllFalse());
+		return "index";
+	}
+
 	@GetMapping("/newCustomerForm")
 	public String newCustomerForm(Model model) {
 		
@@ -37,6 +44,7 @@ public class CustomerController {
 	@PostMapping("/addCustomer")
 	public String addCustomer(@ModelAttribute("customerForm") CustomerForm customerForm,Model model) {
 		Customer customer= mapCustomerFormWithCustomer(customerForm,new Customer());
+		customer.setStatus(true);
 		Result result=customerService.add(customer);
 		if(result.isSuccess()) {
 			return "redirect:/";
@@ -53,18 +61,34 @@ public class CustomerController {
 	@GetMapping("/updateCustomerForm/{id}")
 	public String updateCustomerForm(@PathVariable(name="id") int id,Model model) {
 		Customer customer = customerService.getById(id);
+		model.addAttribute("result",new Result("",true));
 		CustomerForm customerForm=mapCustomerWithCustomerForm(customer);
 		model.addAttribute("customerForm", customerForm);
 		return "updateCustomerForm";
 	}
 	@PostMapping("/updateCustomer")
-	public String updateCustomer(@ModelAttribute("customerForm") CustomerForm customerForm) {;
-		
+	public String updateCustomer(@ModelAttribute("customerForm") CustomerForm customerForm,Model model) {;
+
 		Customer customer = mapCustomerFormWithCustomer(customerForm,customerService.getById(customerForm.getId()));
-		customerService.update(customer);
+		Result result=customerService.update(customer);
+		if(result.isSuccess()){
+
+			return "redirect:/";
+		}
+		model.addAttribute("result",result);
+		model.addAttribute("customerForm", customerForm);
+		return "updateCustomerForm";
+	}
+	@GetMapping("/setStatusFalse/{id}")
+	public String setStatusFalse(@PathVariable(name="id") int id){
+		customerService.setStatus(false,id);
 		return "redirect:/";
 	}
-	
+	@GetMapping("/setStatusTrue/{id}")
+	public String setStatusTrue(@PathVariable(name="id") int id){
+		customerService.setStatus(true,id);
+		return "redirect:/";
+	}
 	private CustomerForm mapCustomerWithCustomerForm(Customer customer) {
 		
 		CustomerForm customerForm = new CustomerForm();

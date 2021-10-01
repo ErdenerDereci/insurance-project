@@ -10,6 +10,6 @@ public interface ServiceBase<T> {
 	List<T> getAll();
 	void delete(T entity);
 	void deleteById(int id);
-	void update(T entity);
+	Result update(T entity);
 	T getById(int id);
 }

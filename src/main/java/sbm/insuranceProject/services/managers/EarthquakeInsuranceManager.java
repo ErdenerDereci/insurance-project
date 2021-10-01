@@ -7,9 +7,14 @@ import org.springframework.stereotype.Service;
 import sbm.insuranceProject.daos.EarthquakeInsuranceDao;
 import sbm.insuranceProject.models.Customer;
 import sbm.insuranceProject.models.EarthquakeInsurance;
+import sbm.insuranceProject.models.HealthInsurance;
 import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerService;
 import sbm.insuranceProject.services.EarthquakeInsuranceService;
+import sbm.insuranceProject.utitilies.BusinessRules;
+import sbm.insuranceProject.utitilies.forms.earthInsuranceForms.EarthquakeInsuranceForm;
+import sbm.insuranceProject.utitilies.helpers.Helpers;
+import sbm.insuranceProject.utitilies.helpers.entities.PriceProps;
 
 @Service
 public class EarthquakeInsuranceManager implements EarthquakeInsuranceService{
@@ -26,21 +31,36 @@ public class EarthquakeInsuranceManager implements EarthquakeInsuranceService{
 	}
 
 	@Override
-	public Result add(EarthquakeInsurance earthquakeInsurance) {
-		
-		earthquakeInsuranceDao.save(earthquakeInsurance);
+	public Result add(EarthquakeInsuranceForm earthquakeInsuranceForm) {
+		if(BusinessRules.InsuranceRules.checkIfCustomersEarthquakeInsuranceExists(earthquakeInsuranceDao, earthquakeInsuranceForm.getCustomer().getId())){
+			PriceProps prices = Helpers.EarhquakeInsuranceHelper.getPrices(earthquakeInsuranceForm);
+			EarthquakeInsurance entity = mapEntityWithForm(earthquakeInsuranceForm);
+			entity.setPrice(prices.getPrice());
+			entity.setDiscountedPrice(prices.getDiscountedPrice());
+			entity.setDiscountRate(prices.getDiscountRate());
+
+
+			earthquakeInsuranceDao.save(entity);
+			return new Result("Ekleme basarili",true);
+		}
+
+		return new Result("Bu kisi zaten bir deprem sigortasina sahip.",false);
+	}
+
+	@Override
+	public Result add(EarthquakeInsurance entity) {
 		return null;
 	}
 
 	@Override
 	public List<EarthquakeInsurance> getAll() {
-		return earthquakeInsuranceDao.findAll();
+		return earthquakeInsuranceDao.getEarthquakeInsuranceStatusTrue();
 	}
 
 	@Override
 	public List<Customer> getAllCustomers() {
 	
-		return customerService.getAll();
+		return customerService.getAllTrue();
 	}
 
 	@Override
@@ -50,14 +70,14 @@ public class EarthquakeInsuranceManager implements EarthquakeInsuranceService{
 	}
 
 	@Override
-	public void update(EarthquakeInsurance entity) {
-		// TODO Auto-generated method stub
+	public Result update(EarthquakeInsurance entity) {
+		return null;
 		
 	}
 
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
+		earthquakeInsuranceDao.deleteById(id);
 		
 	}
 
@@ -67,6 +87,20 @@ public class EarthquakeInsuranceManager implements EarthquakeInsuranceService{
 		return null;
 	}
 
-	
+	private EarthquakeInsurance mapEntityWithForm(EarthquakeInsuranceForm earthquakeInsuranceForm){
+		EarthquakeInsurance earthquakeInsurance = new EarthquakeInsurance();
+		earthquakeInsurance.setAddress(earthquakeInsuranceForm.getAddress());
+		earthquakeInsurance.setCustomer(earthquakeInsuranceForm.getCustomer());
+		earthquakeInsurance.setBuiltType(earthquakeInsuranceForm.getBuiltType());
+		earthquakeInsurance.setBuiltYear(earthquakeInsuranceForm.getBuiltYear());
+		earthquakeInsurance.setDamageStatus(earthquakeInsuranceForm.getDamageStatus());
+		earthquakeInsurance.setFloorCount(earthquakeInsuranceForm.getFloorCount());
+
+		return earthquakeInsurance;
+	}
+
+	public List<EarthquakeInsurance> getEarthquakeInsuranceStatusTrue(){
+		return earthquakeInsuranceDao.getEarthquakeInsuranceStatusTrue();
+	}
 
 }

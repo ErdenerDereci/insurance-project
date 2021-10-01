@@ -1,4 +1,4 @@
-package sbm.insuranceProject.utitilies.forms;
+package sbm.insuranceProject.utitilies.forms.customerForms;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

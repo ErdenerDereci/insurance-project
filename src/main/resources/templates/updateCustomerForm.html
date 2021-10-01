@@ -5,6 +5,14 @@
 <meta charset="UTF-8">
 <title>Update Customer</title>
 </head>
+<header>
+    <div align="center" class="container-sm" style="margin-top: 50px;">
+        <a th:href = "@{/}" class="btn btn-primary" type="submit" >Customer List</a>
+        <a th:href = "@{/healthInsuranceList}" class="btn btn-primary" type="submit" >Health Insurance List</a>
+        <a th:href = "@{/earthquakeInsuranceList}" class="btn btn-primary" type="submit" >Earthquake Insurance List</a>
+        <a th:href = "@{/trafficInsuranceList}" class="btn btn-primary" type="submit" >Traffic Insurance</a>
+    </div>
+</header>
 <body>
 	<div style="margin: auto; margin-top:50px" class="container-sm">
 		<h2>Update Customer</h2>
@@ -39,7 +47,9 @@
 		<div class="col-12">
 		  <button type="submit" class="btn btn-primary">Update</button>
 		</div>
-	  </form>
+            <div id="warningDiv" style="margin-top: 15px; transition-duration: 5s;"  class="alert alert-danger" role="alert" th:if="${result.success == false}" th:text="${result.message}"></div>
+
+        </form>
 	</div>
 	
 </body>

@@ -1,8 +1,7 @@
 package sbm.insuranceProject.services;
 
 import sbm.insuranceProject.models.CustomerIllness;
-import sbm.insuranceProject.utitilies.forms.CustomerIllnessDto;
-import sbm.insuranceProject.utitilies.forms.CustomerIllnessForm;
+import sbm.insuranceProject.utitilies.forms.customerForms.CustomerIllnessDto;
 
 import java.util.List;
 

@@ -6,10 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sbm.insuranceProject.daos.TrafficInsuranceDao;
 import sbm.insuranceProject.models.Customer;
+import sbm.insuranceProject.models.EarthquakeInsurance;
+import sbm.insuranceProject.models.HealthInsurance;
 import sbm.insuranceProject.models.TrafficInsurance;
 import sbm.insuranceProject.results.Result;
 import sbm.insuranceProject.services.CustomerService;
 import sbm.insuranceProject.services.TrafficInsuranceService;
+import sbm.insuranceProject.utitilies.BusinessRules;
+import sbm.insuranceProject.utitilies.forms.earthInsuranceForms.EarthquakeInsuranceForm;
+import sbm.insuranceProject.utitilies.forms.trafficInsuranceForms.TrafficInsuranceForm;
+import sbm.insuranceProject.utitilies.helpers.Helpers;
+import sbm.insuranceProject.utitilies.helpers.entities.PriceProps;
 
 @Service
 public class TrafficInsuranceManager implements TrafficInsuranceService{
@@ -36,12 +43,29 @@ public class TrafficInsuranceManager implements TrafficInsuranceService{
 
 	@Override
 	public List<TrafficInsurance> getAll() {
-		return trafficInsuranceDao.findAll();
+		return trafficInsuranceDao.getTrafficInsuranceStatusTrue();
 	}
 
 	@Override
 	public List<Customer> getAllCustomers() {
-		return customerService.getAll();
+		return customerService.getAllTrue();
+	}
+
+	@Override
+	public Result add(TrafficInsuranceForm trafficInsuranceForm) {
+		if(BusinessRules.InsuranceRules.checkIfCustomersTrafficInsuranceExists(trafficInsuranceDao, trafficInsuranceForm.getCustomer().getId())){
+			PriceProps prices = Helpers.TrafficInsuranceHelper.getPrices(trafficInsuranceForm);
+			TrafficInsurance entity = mapEntityWithForm(trafficInsuranceForm);
+			entity.setPrice(prices.getPrice());
+			entity.setDiscountedPrice(prices.getDiscountedPrice());
+			entity.setDiscountRate(prices.getDiscountRate());
+
+
+			trafficInsuranceDao.save(entity);
+			return new Result("Ekleme basarili",true);
+		}
+
+		return new Result("Bu kisi zaten bir trafik sigortasina sahip.",false);
 	}
 
 	@Override
@@ -51,14 +75,14 @@ public class TrafficInsuranceManager implements TrafficInsuranceService{
 	}
 
 	@Override
-	public void update(TrafficInsurance entity) {
-		// TODO Auto-generated method stub
+	public Result update(TrafficInsurance entity) {
+		return null;
 		
 	}
 
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
+		trafficInsuranceDao.deleteById(id);
 		
 	}
 
@@ -68,6 +92,19 @@ public class TrafficInsuranceManager implements TrafficInsuranceService{
 		return null;
 	}
 
-	
+	private TrafficInsurance mapEntityWithForm(TrafficInsuranceForm trafficInsuranceForm){
+		TrafficInsurance trafficInsurance = new TrafficInsurance();
+		trafficInsurance.setCustomer(trafficInsuranceForm.getCustomer());
+		trafficInsurance.setCityTrafficDensity(trafficInsuranceForm.getCityTrafficDensity());
+		trafficInsurance.setAge(trafficInsuranceForm.getAge());
+		trafficInsurance.setBrand(trafficInsuranceForm.getBrand());
+		trafficInsurance.setLastYearsDamageGrade(trafficInsuranceForm.getLastYearsDamageGrade());
+
+
+		return trafficInsurance;
+	}
+	public List<TrafficInsurance> getTrafficInsuranceStatusTrue(){
+		return trafficInsuranceDao.getTrafficInsuranceStatusTrue();
+	}
 
 }
