@@ -28,7 +28,7 @@
           </div>
           <div class="col-md-6">
             <label for="builtYear" class="form-label">Built Year</label>
-            <input type="text" required class="form-control" id="builtYear" th:field="*{builtYear}">
+            <input type="number" min="1950" required class="form-control" id="builtYear" th:field="*{builtYear}">
           </div>
         <div class="form-group blu-margin" style="margin-top:20px;">Built Type
             <select class="form-select" style="padding:10px;  width: 480px" th:field="*{builtType}"  id="builtType">
@@ -38,7 +38,7 @@
         </div>
           <div class="col-md-6">
             <label for="floorCount" class="form-label">Floor Count</label>
-            <input type="text" required class="form-control" id="floorCount" th:field="*{floorCount}">
+            <input type="number" min="0" required class="form-control" id="floorCount" th:field="*{floorCount}">
           </div>
               <div class="form-group blu-margin" style="margin-top:20px;">Damage Status
               <select  class="form-select" style="padding:10px;  width: 480px" th:field="*{damageStatus}"  id="damageStatus">

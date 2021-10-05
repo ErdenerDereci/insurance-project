@@ -26,12 +26,14 @@
             <input required type="text" class="form-control" id="customerSurname" th:field="*{surname}">
           </div>
           <div class="col-md-6">
-            <label for="gender" class="form-label">Gender</label>
-            <input required type="text" class="form-control" id="gender" th:field="*{gender}">
+              <select  class="form-select" style="padding:10px;  width: 480px" th:field="*{gender}"  id="gender">
+                  <option value="Agir Hasar">KIZ</option>
+                  <option value="Hafif Hasar">ERKEK</option>
+              </select>
           </div>
           <div class="col-md-6">
             <label for="birthYear" class="form-label">Birth Year</label>
-            <input required type="text" class="form-control" id="birthYear" th:field="*{birthYear}">
+            <input required type="number" min="1920" class="form-control" id="birthYear" th:field="*{birthYear}">
           </div>
           <div class="col-md-6">
             <label for="email" class="form-label">Email</label>
@@ -39,7 +41,7 @@
           </div>
           <div class="col-md-6">
             <label  for="nationalityId" class="form-label">Nationality Id</label>
-            <input required type="text" class="form-control" id="nationalityId" th:field="*{nationalityId}">
+            <input required  type='text' onkeypress='validate(event)' size="11" class="form-control" id="nationalityId" th:field="*{nationalityId}">
           </div>
 		<div class="col-12">
 		  <button type="submit" class="btn btn-primary">Add</button>
@@ -49,7 +51,25 @@
 
     </div>
 	</div>
-  
-  
+
+    <script>
+        function validate(evt) {
+            var theEvent = evt || window.event;
+
+            // Handle paste
+            if (theEvent.type === 'paste') {
+                key = event.clipboardData.getData('text/plain');
+            } else {
+                // Handle key press
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+            }
+            var regex = /[0-9]|\./;
+            if( !regex.test(key) ) {
+                theEvent.returnValue = false;
+                if(theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+    </script>
 </body>
 </html>

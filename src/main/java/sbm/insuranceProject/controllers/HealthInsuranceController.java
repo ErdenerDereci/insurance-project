@@ -23,7 +23,6 @@ import java.util.Optional;
 @Controller
 public class HealthInsuranceController {
 
-	private List<Illness> illnesses = new ArrayList<>();
 	@Autowired
 	private HealthInsuranceService healthInsuranceService;
 	@Autowired
@@ -31,11 +30,14 @@ public class HealthInsuranceController {
 	@Autowired
 	private CustomerIllnessService customerIllnessService;
 
+ 	List<Illness> illnesses = new ArrayList<>();
 	@GetMapping("/healthInsuranceList")
+
 	public String listHealthInsurances(Model model) {
+		illnesses.clear();
 		List<HealthInsuranceForm> healthInsuranceForms = healthInsuranceService.getAllHealthInsuranceForm();
 		List<Customer> customers =  healthInsuranceService.getAllCustomers();
-		model.addAttribute("result", new Result("", true));
+		model.addAttribute("result",new Result("",true));
 		model.addAttribute("healthInsuranceForms",healthInsuranceForms);
 		return "healthInsuranceList";
 	}
@@ -45,15 +47,20 @@ public class HealthInsuranceController {
 	public String newHealthInsuranceForm(Model model) {
 		AddHealthInsuranceForm addHealthInsuranceForm = new AddHealthInsuranceForm();
 		List<Customer> customers =  healthInsuranceService.getAllCustomers();
-		List<HealthInsuranceForm> healthInsuranceForms = healthInsuranceService.getAllHealthInsuranceForm();
+		List<Illness> illnessList = illnessService.getAll();
+
 		if (customers.size()==0) {
-			model.addAttribute("result", new Result("Saglik sigortasi eklemeden once en az bir musteri eklemeniz gerekmektedir", false));
+			model.addAttribute("result",new Result("Saglik sigortasi eklemeden " +
+					"once en az bir musteri eklemeniz gerekmektedir", false));
+			List<HealthInsuranceForm> healthInsuranceForms = healthInsuranceService.getAllHealthInsuranceForm();
 			model.addAttribute("healthInsuranceForms",healthInsuranceForms);
-			return "healthInsuranceList";
+
+		return "healthInsuranceList";
 		}
 		model.addAttribute("result",new Result("",true));
 		model.addAttribute("addHealthInsuranceForm", addHealthInsuranceForm);
 		model.addAttribute("customers",customers);
+		model.addAttribute("illnessList",illnessList);
 		model.addAttribute("illnesses",illnesses);
 		return "newHealthInsuranceForm";
 	}
@@ -67,43 +74,49 @@ public class HealthInsuranceController {
 		return "newIllnessForm";
 	}
 	
-	@PostMapping("/addIllness")
-	public String addIllness(@ModelAttribute("illness") Illness illness, Model model) {
+	@GetMapping("/addIllness/{id}")
+	public String addIllness(@PathVariable(name="id") int id, Model model) {
+		AddHealthInsuranceForm addHealthInsuranceForm = new AddHealthInsuranceForm();
+		List<Customer> customers =  healthInsuranceService.getAllCustomers();
+		List<Illness> illnessList = illnessService.getAll();
 
-		Optional<Illness> x=illnessService.findById(illness.getId());
-		model.addAttribute("result",new Result("",true));
+		Optional<Illness> x=illnessService.findById(id);
 		for (Illness illness1 :illnesses) {
-			if(illness1.getId()==illness.getId()){
-				model.addAttribute("result", new Result("",false));
-				model.addAttribute("illnessList",illnessService.getAll());
-				return "newIllnessForm";
+			if(illness1.getId()==id){
+
+				model.addAttribute("addHealthInsuranceForm", addHealthInsuranceForm);
+				model.addAttribute("customers",customers);
+				model.addAttribute("illnessList",illnessList);
+				model.addAttribute("illnesses",illnesses);
+				model.addAttribute("result", new Result("Bu hastalik zaten eklenmis!",false));
+				return "newHealthInsuranceForm";
 			}
 		}
-
 		illnesses.add(x.get());
 		return "redirect:/newHealthInsuranceForm";
 	}
 
 	@PostMapping("/addHealthInsurance")
 	public String addHealthInsurance(@ModelAttribute("addHealthInsuranceForm") AddHealthInsuranceForm addHealthInsuranceForm,Model model) {
+		List<Customer> customers =  healthInsuranceService.getAllCustomers();
+		List<Illness> illnessList = illnessService.getAll();
 
-
-		addHealthInsuranceForm.setIllnesses(illnesses);
 
 		if(illnesses.size()==0){
-			Result result1 = new Result("Hastalik eklenmesi zorunludur.",false);
-			model.addAttribute("result",result1);
-			model.addAttribute("customers", healthInsuranceService.getAllCustomers());
-			model.addAttribute("addHealthInsuranceForm", addHealthInsuranceForm);
-			return "newHealthInsuranceForm";
+
+			model.addAttribute("result",new Result("Hastalik eklenmesi zorunludur.",false));
+			return "redirect:/newHealthInsuranceForm";
 		}
 
-		Result result=healthInsuranceService.add(addHealthInsuranceForm);
-		if(!result.isSuccess()){
-			model.addAttribute("result",result);
-			model.addAttribute("customers", healthInsuranceService.getAllCustomers());
+		addHealthInsuranceForm.setIllnesses(illnesses);
+		Result result1=healthInsuranceService.add(addHealthInsuranceForm);
+		if(!result1.isSuccess()){
+			model.addAttribute("result",result1);
 			model.addAttribute("addHealthInsuranceForm", addHealthInsuranceForm);
+			model.addAttribute("customers",healthInsuranceService.getAllCustomers());
+			model.addAttribute("illnessList",illnessService.getAll());
 			model.addAttribute("illnesses",illnesses);
+
 			return "newHealthInsuranceForm";
 		}
 
@@ -115,7 +128,6 @@ public class HealthInsuranceController {
 			customerIllnessService.add(customerIllness);
 		}
 
-		illnesses.clear();
 		return "redirect:/healthInsuranceList";
 	}
 	
@@ -124,6 +136,7 @@ public class HealthInsuranceController {
 		healthInsuranceService.deleteById(id);
 		return "redirect:/healthInsuranceList";
 	}
+
 	@RequestMapping("/deleteFromIllnessList/{id}")
 	public String deleteIllnessFromList(@PathVariable(name="id") int id){
 		Illness temp=null;
@@ -135,7 +148,7 @@ public class HealthInsuranceController {
 		illnesses.remove(temp);
 		return "redirect:/newHealthInsuranceForm";
 	}
-	
+
 	/*
 	@GetMapping("/updateHealthInsuranceForm/{id}")
 	public String updateHealthInsuance(@PathVariable(name="id") int id,Model model) {

@@ -24,11 +24,11 @@
             </div>
           <div class="col-md-6">
             <label for="lastYearsDamageGrade" class="form-label">Last Years Damage Grade</label>
-            <input type="number" required class="form-control" id="lastYearsDamageGrade" th:field="*{lastYearsDamageGrade}">
+            <input type="number" min="0" required class="form-control" id="lastYearsDamageGrade" th:field="*{lastYearsDamageGrade}">
           </div>
           <div class="col-md-6">
             <label for="age" class="form-label">Age</label>
-            <input type="number" required class="form-control" id="age" th:field="*{age}">
+            <input type="number" min="0" required class="form-control" id="age" th:field="*{age}">
           </div>
         <div class="form-group blu-margin" style="margin-top:20px;">Brand
             <select style="padding:10px;" th:field="*{brand}" class="form-select"  id="brand">
@@ -47,8 +47,8 @@
         <div id="warningDiv" style="margin-top: 15px; transition-duration: 5s;"  class="alert alert-danger" role="alert" th:if="${result.success == false}" th:text="${result.message}"></div>
 
     </div>
-	 
 
-	
+
+
 </body>
 </html>
